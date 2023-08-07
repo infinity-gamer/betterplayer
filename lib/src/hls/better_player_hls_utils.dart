@@ -42,12 +42,10 @@ class BetterPlayerHlsUtils {
       final parsedPlaylist = await HlsPlaylistParser.create()
           .parseString(Uri.parse(masterPlaylistUrl), data);
       if (parsedPlaylist is HlsMasterPlaylist) {
-        parsedPlaylist.variants.forEach(
-          (variant) {
+        for (var variant in parsedPlaylist.variants) {
             tracks.add(BetterPlayerAsmsTrack('', variant.format.width,
                 variant.format.height, variant.format.bitrate, 0, '', ''));
-          },
-        );
+          }
       }
 
       if (tracks.isNotEmpty) {
@@ -91,7 +89,7 @@ class BetterPlayerHlsUtils {
   static Future<BetterPlayerAsmsSubtitle?> _parseSubtitlesPlaylist(
       Rendition rendition) async {
     try {
-      final HlsPlaylistParser _hlsPlaylistParser = HlsPlaylistParser.create();
+      final HlsPlaylistParser hlsPlaylistParser = HlsPlaylistParser.create();
       final subtitleData =
           await BetterPlayerAsmsUtils.getDataFromUrl(rendition.url.toString());
       if (subtitleData == null) {
@@ -99,7 +97,7 @@ class BetterPlayerHlsUtils {
       }
 
       final parsedSubtitle =
-          await _hlsPlaylistParser.parseString(rendition.url, subtitleData);
+          await hlsPlaylistParser.parseString(rendition.url, subtitleData);
       final hlsMediaPlaylist = parsedSubtitle as HlsMediaPlaylist;
       final hlsSubtitlesUrls = <String>[];
 

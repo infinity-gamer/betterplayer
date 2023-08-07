@@ -16,11 +16,11 @@ class BetterPlayerWithControls extends StatefulWidget {
   const BetterPlayerWithControls({Key? key, this.controller}) : super(key: key);
 
   @override
-  _BetterPlayerWithControlsState createState() =>
-      _BetterPlayerWithControlsState();
+  BetterPlayerWithControlsState createState() =>
+      BetterPlayerWithControlsState();
 }
 
-class _BetterPlayerWithControlsState extends State<BetterPlayerWithControls> {
+class BetterPlayerWithControlsState extends State<BetterPlayerWithControls> {
   BetterPlayerSubtitlesConfiguration get subtitlesConfiguration =>
       widget.controller!.betterPlayerConfiguration.subtitlesConfiguration;
 

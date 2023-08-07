@@ -37,11 +37,11 @@ class BetterPlayerListVideoPlayer extends StatefulWidget {
         super(key: key);
 
   @override
-  _BetterPlayerListVideoPlayerState createState() =>
-      _BetterPlayerListVideoPlayerState();
+  BetterPlayerListVideoPlayerState createState() =>
+      BetterPlayerListVideoPlayerState();
 }
 
-class _BetterPlayerListVideoPlayerState
+class BetterPlayerListVideoPlayerState
     extends State<BetterPlayerListVideoPlayer>
     with AutomaticKeepAliveClientMixin<BetterPlayerListVideoPlayer> {
   BetterPlayerController? _betterPlayerController;

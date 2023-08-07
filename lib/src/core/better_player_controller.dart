@@ -215,7 +215,7 @@ class BetterPlayerController {
     this.betterPlayerPlaylistConfiguration,
     BetterPlayerDataSource? betterPlayerDataSource,
   }) {
-    this._betterPlayerControlsConfiguration =
+    _betterPlayerControlsConfiguration =
         betterPlayerConfiguration.controlsConfiguration;
     _eventListeners.add(eventListener);
     if (betterPlayerDataSource != null) {
@@ -305,19 +305,19 @@ class BetterPlayerController {
       _getHeaders(),
     );
     if (data != null) {
-      final BetterPlayerAsmsDataHolder _response =
+      final BetterPlayerAsmsDataHolder response =
           await BetterPlayerAsmsUtils.parse(data, betterPlayerDataSource!.url);
 
       /// Load tracks
       if (_betterPlayerDataSource?.useAsmsTracks == true) {
-        _betterPlayerAsmsTracks = _response.tracks ?? [];
+        _betterPlayerAsmsTracks = response.tracks ?? [];
       }
 
       /// Load subtitles
       if (betterPlayerDataSource?.useAsmsSubtitles == true) {
         final List<BetterPlayerAsmsSubtitle> asmsSubtitles =
-            _response.subtitles ?? [];
-        asmsSubtitles.forEach((BetterPlayerAsmsSubtitle asmsSubtitle) {
+            response.subtitles ?? [];
+        for (var asmsSubtitle in asmsSubtitles) {
           _betterPlayerSubtitlesSourceList.add(
             BetterPlayerSubtitlesSource(
               type: BetterPlayerSubtitlesSourceType.network,
@@ -329,13 +329,13 @@ class BetterPlayerController {
               selectedByDefault: asmsSubtitle.isDefault,
             ),
           );
-        });
+        }
       }
 
       ///Load audio tracks
       if (betterPlayerDataSource?.useAsmsAudioTracks == true &&
           _isDataSourceAsms(betterPlayerDataSource!)) {
-        _betterPlayerAsmsAudioTracks = _response.audios ?? [];
+        _betterPlayerAsmsAudioTracks = response.audios ?? [];
         if (_betterPlayerAsmsAudioTracks?.isNotEmpty == true) {
           setAudioTrack(_betterPlayerAsmsAudioTracks!.first);
         }
@@ -860,9 +860,9 @@ class BetterPlayerController {
       }
 
       _nextVideoTimer =
-          Timer.periodic(const Duration(milliseconds: 1000), (_timer) async {
+          Timer.periodic(const Duration(milliseconds: 1000), (timer) async {
         if (_nextVideoTime == 1) {
-          _timer.cancel();
+          timer.cancel();
           _nextVideoTimer = null;
         }
         if (_nextVideoTime != null) {
@@ -1260,7 +1260,7 @@ class BetterPlayerController {
   ///cache started for given [betterPlayerDataSource] then it will be ignored.
   Future<void> stopPreCache(
       BetterPlayerDataSource betterPlayerDataSource) async {
-    return VideoPlayerController?.stopPreCache(betterPlayerDataSource.url,
+    return VideoPlayerController.stopPreCache(betterPlayerDataSource.url,
         betterPlayerDataSource.cacheConfiguration?.key);
   }
 
@@ -1268,7 +1268,7 @@ class BetterPlayerController {
   /// controller.
   void setBetterPlayerControlsConfiguration(
       BetterPlayerControlsConfiguration betterPlayerControlsConfiguration) {
-    this._betterPlayerControlsConfiguration = betterPlayerControlsConfiguration;
+    _betterPlayerControlsConfiguration = betterPlayerControlsConfiguration;
   }
 
   /// Add controller internal event.
@@ -1301,7 +1301,9 @@ class BetterPlayerController {
       _controllerEventStreamController.close();
 
       ///Delete files async
-      _tempFiles.forEach((file) => file.delete());
+      for (var file in _tempFiles) {
+        file.delete();
+      }
     }
   }
 }

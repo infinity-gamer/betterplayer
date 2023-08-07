@@ -19,11 +19,11 @@ class BetterPlayerSubtitlesDrawer extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _BetterPlayerSubtitlesDrawerState createState() =>
-      _BetterPlayerSubtitlesDrawerState();
+  BetterPlayerSubtitlesDrawerState createState() =>
+      BetterPlayerSubtitlesDrawerState();
 }
 
-class _BetterPlayerSubtitlesDrawerState
+class BetterPlayerSubtitlesDrawerState
     extends State<BetterPlayerSubtitlesDrawer> {
   final RegExp htmlRegExp =
       // ignore: unnecessary_raw_strings
